@@ -1,0 +1,39 @@
+---
+  - name: check waku-doc exists
+    stat:
+      path: /var/www/wakuwaku-doc
+    register: doc_stat
+
+  - name: copy docs files
+    copy:
+      src: ./files/wakuwaku-doc
+      dest: /var/www
+    when: not doc_stat.stat.exists
+
+  - name: remove olds files
+    file:
+      path: /var/www/wakuwaku-doc/{{ item }}
+      state: absent
+    with_items:
+      - yarn.lock
+      - node_modules\
+
+  - name: build to production
+    command: chdir=/var/www/wakuwaku-doc {{ item }}
+    with_items:
+      - yarn install
+      - yarn run build
+
+  - name: check build production
+    stat:
+      path: /var/www/wakuwaku-doc/docs/.vuepress/dist
+    register: build_stat
+
+  - name: move dist in vuepress outside
+    command: mv /var/www/wakuwaku-doc/docs/.vuepress/dist /var/www/wakuwaku-doc/
+    when: build_stat.stat.exists
+
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted

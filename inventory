@@ -1,0 +1,2 @@
+[web]
+app@localhost ansible_become_pass=password

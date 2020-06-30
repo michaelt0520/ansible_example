@@ -1,0 +1,9 @@
+-
+  hosts: web
+  remote_user: app
+  become: true
+  vars:
+    filename: ruby
+  roles:
+    - setup_env
+    - deploy
