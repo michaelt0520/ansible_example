@@ -1,3 +1,5 @@
-- include: ubuntu.yml
-- include: nginx.yml
-- include: node.yml
+- include: ruby.yml
+- include: image-magick.yml
+- include: letsencrypt.yml
+- include: mkdir-path.yml
+- include: sidekiq.yml

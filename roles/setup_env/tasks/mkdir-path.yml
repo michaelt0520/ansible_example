@@ -1,0 +1,17 @@
+---
+  - name: Check exists project directory
+    stat:
+      path: {{ project_path }}
+    register: project_path_stats
+
+  - name: Creates project directory
+    file:
+      path: {{ item }}
+      state: directory
+    with_items:
+    - {{ project_path }}
+    - {{ project_path }}/current
+    - {{ project_path }}/shared
+    - {{ project_path }}/shared/config
+    when: not project_path_stats.stat.exists
+

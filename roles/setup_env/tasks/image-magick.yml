@@ -1,0 +1,5 @@
+---
+  - name: Install imagemagick
+    apt:
+      name: ruby-mini-magick
+      state: present

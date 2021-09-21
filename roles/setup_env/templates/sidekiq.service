@@ -1,0 +1,25 @@
+[Unit]
+Description=sidekiq
+
+After=syslog.target network.target
+
+[Service]
+Type=simple
+
+WorkingDirectory=/data/michael-cms/current
+ExecStart=/home/michaelcms/.rbenv/shims/bundle exec "sidekiq --environment staging"
+
+User=michaelcms
+Group=michaelcms
+UMask=0002
+
+RestartSec=1
+Restart=on-failure
+
+StandardOutput=syslog
+StandardError=syslog
+
+SyslogIdentifier=sidekiq
+
+[Install]
+WantedBy=multi-user.target

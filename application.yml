@@ -4,6 +4,11 @@
   become: true
   vars:
     filename: ruby
+    ruby_version: 2.7.2
+    user_name: michaelcms
+    rbenv_root: /home/michaelcms/.rbenv
+    project_path: /data/michael-cms/
   roles:
+    - setup_base
     - setup_env
     - deploy

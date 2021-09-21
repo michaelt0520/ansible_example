@@ -1,0 +1,8 @@
+---
+  - name: Template sidekiq.service to /lib/systemd/system/
+    template:
+      src: ./templates/sidekiq.service
+      dest: /lib/systemd/system/sidekiq.service
+      owner: michaelcms
+      group: michaelcms
+      mode: '0644'

@@ -1,0 +1,26 @@
+---
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: present
+
+  - name: Remove file default
+    file:
+      path: /etc/nginx/sites_enabled/default
+      state: absent
+
+  - name: Template michael-cms.conf to /etc/nginx/conf.d/
+    template:
+      src: ./templates/michael-cms.conf
+      dest: /etc/nginx/conf.d/michael-cms.conf
+      owner: michaelcms
+      group: michaelcms
+      mode: '0644'
+
+  - name: Template assets.michael-cms.conf to /etc/nginx/conf.d/
+    template:
+      src: ./templates/assets.michael-cms.conf
+      dest: /etc/nginx/conf.d/assets.michael-cms.conf
+      owner: michaelcms
+      group: michaelcms
+      mode: '0644'

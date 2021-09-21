@@ -1,0 +1,6 @@
+- include: ubuntu.yml
+- include: nginx.yml
+- include: node.yml
+- include: git.yml
+- include: postgresql.yml
+- include: htpasswd.yml

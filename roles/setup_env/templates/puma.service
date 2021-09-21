@@ -1,0 +1,22 @@
+[Unit]
+Description=Puma HTTP Server for michael (staging)
+After=network.target
+
+[Service]
+Type=simple
+
+WorkingDirectory=/data/staging/michael/current
+ExecStart=/home/michaelnews/.rbenv/bin/rbenv exec bundle exec puma -C /data/staging/michael/shared/config/puma/staging.rb
+
+User=michaelnews
+
+ExecReload=/bin/kill -TSTP $MAINPID
+ExecStop=/bin/kill -TERM $MAINPID
+
+StandardOutput=append:/data/staging/michael/shared/log/puma_access.log
+StandardError=append:/data/staging/michael/shared/log/puma_error.log
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

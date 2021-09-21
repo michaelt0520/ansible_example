@@ -1,0 +1,11 @@
+---
+  - name: Install letsencrypt
+    git: repo=https://github.com/letsencrypt/letsencrypt dest=/opt/letsencrypt
+
+  - name: Install certbot
+    apt:
+      name: {{ item }}
+      status: present
+    with_items:
+      - certbot
+      - python3-certbot-nginx

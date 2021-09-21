@@ -1,0 +1,22 @@
+---
+  - name: curl rbenv
+    shell: curl -sL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | bash -
+
+  - name: Add rbenv path
+    lineinfile: line='export PATH="$HOME/.rbenv/bin:$PATH"' path=~/.bashrc insertafter=EOF create=yes
+
+  - name: Execute rbenv on init
+    lineinfile: line='eval "$(rbenv init -)"' path=~/.bashrc insertafter=EOF
+
+  - name: Install ruby {{ ruby_version }}
+    command: rbenv install {{ ruby_version }}
+    register: ruby
+    ignore_errors: true
+
+  - name: Rbenv rehash
+    command: rbenv rehash
+    when: ruby.rc == 0
+
+  - name: Setup ruby global {{ ruby_version }}
+    command: rbenv global {{ ruby_version }}
+    when: ruby.rc == 0
